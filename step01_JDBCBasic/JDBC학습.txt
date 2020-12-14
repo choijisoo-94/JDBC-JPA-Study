@@ -1,0 +1,54 @@
+JDBC 학습내용
+
+1. JDBC
+	1. Java DataBase Connectivity의 약어
+	2. 표준 API로 모든 DB 와 연동하는 코드가 동일함을 보장
+	3. DB 연동 표준 API
+	4. insert/update/delete 즉 dml을 처리하는 executeUpdate() 는 autocommit 기능
+		사용자가 영구저장, 복원에 
+	
+2. 참고
+	SQLPLUS 실행 및 동작 순서
+		1단계 - ORACLE DB 가 실행중
+		2단계 - SQLPLUS 실행
+		3단계 - ID/PW 입력후 접속 요청 및 승인
+		4단계 - SQL 문장 작성 -> ENTER (실행 요청)
+		5단계 - SQL 문장의 결과 확인
+			select - table 형식의 결과
+			insert/update/delete - table 에 영향을 미친 행수
+			create/drop/alter - boolean 값 변환
+		6단계 - exit 명령어로 종료 
+		
+		
+		
+3. java 언어로 project 개발 - db 소통		
+	1단계 - oracle db 실행중
+	2단계 - oracle db 만의 종속적인 코드로 개발하지 않고자 표준 API 를 사용가능하게 지원해주는
+			driver(db벤더사 제공) 를 환경상에 셋팅
+			(pc에 print driver(프린트벤더사가 제공) 연동과 동일한 작업)
+		
+		
+4. 웹상
+	cliant와 server 통신시 필수 url 표기법
+		- 웹에서 cliant 와 server간의 통신 규약 : http
+	http://ip:port/디렉토리명/실행파일명
+	http://도메인...
+	
+5. jdbc 통신 규약 표기법
+	- 모든 db가 동일
+	jdbc : 벤더사 제공 url...	
+	
+	
+	
+	
+				
+* 환경셋팅 참고
+	- 필요한 library 셋팅 방법
+	1. maven
+		- 원격지로 부터 내 로컬시스템 고정 경로에 다운로드
+		.m2/re~
+	2. git & github
+		- 내 로컬 저장소와 원격지인 github 가 동기화 되서 구동
+	3. 수동으로 사용자가 설정
+		- 개발되는 project 당 별도로 셋팅
+				
