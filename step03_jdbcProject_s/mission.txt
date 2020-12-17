@@ -1,0 +1,43 @@
+1. 전체 구조 이해하고 분석하기
+	- 미흡하고 찝찝한 구조 재정리 및 코드 개선하기 
+	
+2. sql문장을 DB에 적용하기 - ok
+	- 실행순서
+	
+3. ActivistDAO 클래스 완성하기 - ok
+
+4. DBUtil.java 에 db.properties 적용 재확인
+
+5. pattern	
+	1. MVC
+	2. DAO
+	3. DTO[VO]
+	4. SingleTon 
+	...
+	
+6. 제약조건(필수 추가)	
+	1. builder pattern 적용?	
+	2. log4j(log4j.properties) 적용?
+	..
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

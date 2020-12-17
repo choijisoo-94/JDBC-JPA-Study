@@ -1,0 +1,12 @@
+검수 목록
+
+1.  실행여부 확인하기
+2.  service controller 
+	1. void 사용 여부
+	2. controller 모든 문장에 모든 end view 구문들어가 있는지
+3. endview에 추가로 생성된 메세지를 출력을 하는 방법을 권장? case by case 
+	1. end view 수정 해서 고쳤는지도 보기
+4. ddl 과 dml 을 어떤 식으로 해결하셨는지? 
+	1. cmd창 ?  
+	2. ? 다른 방법?
+5.  	
