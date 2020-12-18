@@ -1,0 +1,110 @@
+학습내용
+======================
+
+*** 단위 Test 추가 학습 ***
+
+1. 단위 test란?
+	기능별 개발 후에 바로바로 로직 확인하는 test를 의미
+	
+2. 통합 test
+	- 개별적으로 다 구축 후에 통합해서 서비스 전에 test 하는 것을 의미
+	
+3. 단위 test 방법
+	- web server있는 상태라면 서버 실행 + 개발 로직 배포 + 브라우저로 요청, 응답하는 test
+	- Standalone Application
+		web server가 없이 실행되는 프로그램		
+		실행시 main() 특화된 시작 메소드 필요
+		
+		단위 test 용 library들 개발 - Xunit
+		: java 기반 - junit
+		- main 메소드 없이도 단순 어노테이션 기반으로 소스의 설정만으로 활용
+		- 전제조건 : 해당 기능의 library 셋팅 필수
+			
+
+
+======================
+1. 실행 단계
+	table 존재 여부를 rdbs 확인 -> 없었음
+	Test 실행 
+		1. table 여부 확인 후 Member/Customer 자동 생성
+		2. console창에 drop & create 기록 
+		3. 2번째 실행시에는 콘솔창에 에러 없이 실행 - 존재하는 table 삭제 -> table 생성
+			
+2. 결론
+	- sql문장 없이도 table이 자동 생성	
+	
+===================
+JPA의 필수 이론
+1. 기능 : java 순수 코드로 table 및 관계 형성 및 데이터 저장,수정,삭제,검색 가능
+	- sql문장이 없어도  db와 crud가 가능
+	
+2. 장점
+	- 개발 코드가 간소화, 개발 비용 절감
+	- 표준화
+	- table 설계가 변경될 경우에 sql문장 새로 구성할 필요없이 자바 소스 부분만 수정해서 활용 
+	
+3. 단점
+	- 복잡한 sql 문장인 경우 구현 쉽지 않음
+	- 복잡한 sql문장은 JDBC 혼용해서 JPA 활용
+	- 배우기가 매우 어렵다	
+		 
+-------------------
+우선 소스 이해하기
+[1] JPA API
+
+	1. @Entity  
+		- table로 매핑되는 자바 클래스 
+		- 미존재했던 TABLE인 경우 자동 생성
+		- 설정만으로 자동 생성되는 sql문장 확인
+		
+	2. @Id	
+		- pk 설정
+		- Entity 클래스내부에 멤버변수 선언구에 설정(필수)
+		- 
+	3. @Column
+		- 멤버 변수와 매핑되는 table 개별 컬럼들 설정
+		- 변수명과 동일, 변수명과 다르게 설정, 컬럼의 타입 정보를 속성 정보(속성명 = 값)로 보유	
+		-@Column(name="name")
+
+[2] JAP 설정 파일
+1. presistence.xml
+	1. META-INF 디렉토리에 내장
+	2. 보유 정보
+		1. 어떤 클래스가 table화 하고자 하는 Entity 클래스가 등록
+			<class>step01.entity.Customer</class>
+			<class>step01.entity.Member</class>
+		
+		2. 사용 db 의 접속 정보	
+			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
+			<property name="javax.persistence.jdbc.user" value="SCOTT" />
+			<property name="javax.persistence.jdbc.password" value="TIGER" />
+		
+			<property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect" />
+			
+		
+		3. 실행시 jpa가 자동 생성해주는 sql문장 확인 여부의 유무에 대한 설정
+			1. 개발자 및 관리자 측면에서 확인을 위한 기본 설정
+				<!-- console창에 sql 문장 출력 -->
+				<property name="hibernate.show_sql" value="true" />
+				
+				<!-- 출력되는 sql문장에 가독성을 고려한 들여쓰기 등 반영 -->
+				<property name="hibernate.format_sql" value="true" />
+				
+				<!-- entity와 sql 부연 설명 -->
+				<property name="hibernate.use_sql_comments" value="true" />
+				
+			2. 실행시 마다 table 생성 또는 활용에 대한 설정
+				<property name="hibernate.hbm2ddl.auto" value="create" />  
+	
+	
+		4. 다양한 DB 와의 소통 설정 가능, 단, <persistence-unit name = "각 table별 공유한 id"> 구분
+		
+	2. SQL review 관점
+		1. commit과 rollback이 필수인 sql문장
+			- insert/update/delete
+			- EntityTransaction API 필요 영역
+			
+		2. commit과 rollback과 무관한 sql문장
+			-create/drop/alter/select		
+	

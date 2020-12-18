@@ -1,0 +1,71 @@
+step06_JPAJoin
+
+
+1. join table 관련된 JPA 개발 기술
+2. Table 구조
+	1. Team
+	2. Member
+	
+	
+3. 서술형으로 다양한 상황 연출해보기
+	하나의 Team에는 다수의 멤버가 있을수도, 한명의 멤버만 있을 수도 있음
+	하나의 Team에는 다수의 멤버가 있을수도, 한명의 멤버만 있을 수도 있고, 어떠한 팀원도 없을수도 있음
+	한명의 Member는 하나의 Team에 소속이 될수도, 여러 Team에 소속이 될수도 있음
+	한명의 Member는 하나의 Team에 소속이 될수도, 여러 Team에 소속이 될수도, 어떠한 Team에도 소속이 안될수도 있음
+	...	
+	
+4. 실습단계
+	1단계
+		1. 하나의 Team에는 한명의 Member가 있는 상황	
+		2. table 컬럼들 관계
+			Team - 팀아이디, 팀명
+			Member - 멤버아이디, 나이, 이름, 팀아이디(Team의 팀아이디가 fk 로 설정)
+			
+		3. 발생된 논리적인 문제점
+			1. table 설계의 제약조건 미흡
+			2. Team의 id값이 아님에도 Member 의 team_id 컬럼에는 타입만 일치되면 값 저장 가능
+			3. 두개의 table에 sequence가 공유되는 문제 발생
+			
+	2단계 - 1단계의 해결책
+		- Team 하나에 Member 한영 포함
+		1. 시퀀스별 개별 이름 부여
+			team table용 sequence명 - team_id_seq
+			member table용 sequence명 - member_id_seq
+		2. team table의 team_id와 member table의 member_id 제약 조건 설정
+			member의 teamId변수에 team table의 teamId 조인 설정
+					
+		3. Member의 fk로 설정하고자 하는 변수에 @JoinColumn 설정
+					
+	3단계 - Team 하나에 여러명의 Member 소속 구조
+			1. Team.java
+				1. 멤버 변수 : teamId/teamName/members
+			2. Team table
+				1. 컬럼 : team_id/team_name
+				
+			3.결론
+				JPA로 join 관계의 entity 클래스들의 멤버 변수들과 생성되는 table sql의 컬럼들ㅇ느 100%일치가 되지 않을 수도 있ㅇ므. 
+				단, entity 클래스의 멤버 변수들 사용으로 java 객체와 database를 일치화 해서 관리 및 개발 
+				ORM 기술
+				
+			4. 주의 상황
+
+
+	5단계	 - 즉시로딩, 늦은 로딩에 대한 실습을 통한 학습	
+		가령, Member의 모든 정보 검색시에는 소속된 팀 정보 포함
+		개발 가능한 경우의 수
+			경우의 수1 : member table & team table의 정보를 조인해서 검색 필요
+				select... from member, team...
+			경우의 수2 : member table 검색, member의 team_id 컬럼 정보등으로 team table에 정보 검색
+				select from member
+				select from team
+				
+		1. 지연 로딩이란?
+			조인해서 모든 정보를 사전에 미리 다 검색을 하는게 아니라 실질적으로 필요한 시점에 select를 table별로 검색시도
+				select from member
+				select from team
+		2. 즉시 로딩이란?
+			무조건 연계된 모든 table 의 정보를 join 해서 한번에(사전에) 검색 하는 기술
+				select...from member, team....
+				
+				
+								

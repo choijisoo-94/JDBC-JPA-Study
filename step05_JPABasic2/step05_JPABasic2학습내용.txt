@@ -1,0 +1,36 @@
+실습 내용
+
+1. 주 목적 : JPA 프로젝트 생성 방법 습득
+2. 익숙해지기
+	1. dept01 이라는 table에 데이터 CURD
+	
+3. 개발 단계
+	1단계 : project 생성
+		maven & jpa 프로젝트화
+		
+	2단계 : persistence.xml 파일의 내용을 oracle db에 맞게 구성
+	
+	3단계 : entity 클래스 개발
+	
+		dept01
+			deptno/dname/loc
+			
+	4단계 : 실행 클래스 개발
+		JPA 스펙에 맞게 단계별 개발
+		1단계 : EntityManagerFactory
+		2단계 : EntityManager
+		3단계 : EntityManager의 개별 메소드 crud	
+		
+4. Entity 클래스 개발 방법
+	1. @Entity 애노테이션 선언
+	2. persistence.xml 에 등록
+	3. 각 컬럼별 이름, 사이즈 조절
+		-?	
+		
+5. 학습 내용
+	1. @Column(length=20, nullable=false)
+	2. @GenerateValue(strategy=GenerationType.SEQUENCE)
+		drop sequence hibernate_sequence
+		create sequence hibernate_sequence start ith 1 increment by 1				
+		
+	//????			
